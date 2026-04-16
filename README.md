@@ -132,7 +132,13 @@ npm run dev
 ### 📦 安装
 
 ```bash
+# 克隆代码
+git clone https://github.com/wang-h/knoss.git
+cd knoss
+
 # 安装后端依赖
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 
 # 安装前端依赖
@@ -140,9 +146,22 @@ cd frontend
 npm install
 ```
 
-### 🚀 使用方法
+### 🚀 快速开始
 
-**后端使用:**
+**开发环境启动:**
+
+```bash
+# 终端1: 启动后端
+cd knoss
+uvicorn knoss.main:app --reload --host 0.0.0.0 --port 8000
+
+# 终端2: 启动前端
+cd frontend
+npm run dev
+# 访问: http://localhost:5173
+```
+
+**后端使用示例:**
 ```python
 from knoss.workflows import RefineryWorkflow
 
@@ -155,13 +174,25 @@ result = workflow.run({
 })
 ```
 
-**前端启动:**
+### 🌐 生产部署
+
+详细的部署指南请参考：**[DEPLOYMENT.md](DEPLOYMENT.md)**
+
+**快速部署 (Docker):**
 ```bash
-# 启动Web管理界面
-cd frontend
-npm run dev
-# 访问: http://localhost:5173
+# 使用docker-compose一键部署
+docker-compose up -d
+
+# 访问服务
+# 前端: http://localhost
+# 后端API: http://localhost:8000
+# API文档: http://localhost:8000/docs
 ```
+
+**部署选项:**
+- 🐳 **Docker部署** (推荐) - 一键部署，包含数据库
+- 🖥️ **传统部署** - Systemd + Nginx
+- ☁️ **云平台** - AWS/GCP/Azure 部署指南
 
 ### 🧪 测试
 
@@ -179,6 +210,7 @@ npm test
 
 ### 📚 文档
 
+- **[部署指南](DEPLOYMENT.md)** - 完整的生产环境部署文档
 - [模块边界](KNOWN_MODULE_BOUNDARIES.md) - 什么属于Knoss
 - [Web UI状态](WEB_UI_STATUS.md) - 前端实现状态
 - [测试报告](../docs/) - 冒烟测试和质量审计结果
